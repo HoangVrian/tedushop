@@ -10,6 +10,7 @@ namespace TedShop.Data.Repositories
 {
     public interface IPostCategoryRepository : IRepository<PostCategory>
     {
+        PostCategory Delete(int id);
     }
 
     public class PostCategoryRepository : RepositoryBase<PostCategory>, IPostCategoryRepository

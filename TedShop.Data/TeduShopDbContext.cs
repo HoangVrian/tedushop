@@ -4,8 +4,9 @@ namespace TedShop.Data
     using System;
     using System.Data.Entity;
     using System.Linq;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
-    public class TeduShopDbContext : DbContext
+    public class TeduShopDbContext : IdentityDbContext<ApplicationUser>
     {
         // Your context has been configured to use a 'TeduShopDbContext' connection string from your application's 
         // configuration file (App.config or Web.config). By default, this connection string targets the 
@@ -18,6 +19,7 @@ namespace TedShop.Data
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
+        public DbSet<Error> Errors { set; get; }
         public DbSet<Footer> Footers { set; get; }
         public DbSet<Menu> Menus { set; get; }
         public DbSet<MenuGroup> MenuGroups { set; get; }
@@ -40,9 +42,15 @@ namespace TedShop.Data
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
 
 
+        public static TeduShopDbContext Create()
+        {
+            return new TeduShopDbContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.

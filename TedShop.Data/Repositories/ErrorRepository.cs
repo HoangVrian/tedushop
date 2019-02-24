@@ -8,14 +8,13 @@ using TeduShop.Model.Model;
 
 namespace TedShop.Data.Repositories
 {
-    public interface IPostRepository : IRepository<Post>
+    public interface IErrorRepository : IRepository<Error>
     {
-        Post Delete(int id);
     }
 
-    public class PostRepository : RepositoryBase<Post>, IPostRepository
+    public class ErrorRepository : RepositoryBase<Error>, IErrorRepository
     {
-        public PostRepository(IDbFactory dbFactory) : base(dbFactory)
+        public ErrorRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
     }
